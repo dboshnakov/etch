@@ -1,2 +1,2 @@
 # etch
-etch-a-sketch
+A basic etch-a-sketch program, part of TheOdinProject Foundations Course
