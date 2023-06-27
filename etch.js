@@ -8,9 +8,9 @@ body.appendChild(button);
 
 function setGrid(number) {
     removeExistingGrid();
-    console.log(`number = ${number}`);
+    //console.log(`number = ${number}`);
     for (let i = 1; i <= number; i++) {
-        console.log(`i=${i}, number=${number}`);
+        //console.log(`i=${i}, number=${number}`);
         let row = document.createElement("div");
         row.classList.add("row");
         row.classList.add(i);
@@ -61,11 +61,54 @@ function removeExistingGrid() {
 
 
 let table = document.querySelector(".container");
-table.addEventListener("click", markCell, false)
+let isClicked = false;
+
+table.addEventListener("mousedown",holdClick,false);
+table.addEventListener("mouseup",unholdClick,false);
+table.addEventListener("mouseover",markCell,false);
+
+function holdClick(e) {
+    isClicked = true;
+    //console.log(isClicked,e.target);
+    markCell(e);
+}
+
+function unholdClick() {
+    isClicked = false;
+    //console.log(isClicked);
+}
 
 function markCell(e) {
-    if (e.target.classList.contains('item')) {
-        ;
-        e.target.classList.toggle("marked");
+    //console.log(isClicked,e.target);
+    if (isClicked && e.target.classList.contains('item')) {
+        e.target.classList.add("marked");
     }
 }
+
+
+
+
+//table.addEventListener("mouseover", clickHeld, false);
+//table.addEventListener("click", markCell, false);
+//table.addEventListener("mousedown",clickHeld);
+//table.addEventListener("mouseup",clickReleased);
+
+/*function clickHeld(e) {
+    isClicked = true;
+    console.log("click held");
+    }
+
+function clickReleased() {
+    isClicked = false;
+    console.log("click released");
+}
+
+function markCell(e) {
+    table.addEventListener("mousedown",clickHeld);
+    table.addEventListener("mouseup",clickReleased);
+    //console.log(isClicked);
+    if (e.target.classList.contains('item')) {
+        e.target.classList.add("marked");
+    }
+    
+}*/
