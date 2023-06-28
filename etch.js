@@ -1,5 +1,5 @@
 let body = document.querySelector("body");
-let number = 100;
+let number = 16;
 
 let button = document.createElement("button");
 button.textContent = "Grid size";
