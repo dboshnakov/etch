@@ -1,10 +1,14 @@
 let body = document.querySelector("body");
-let number = 16;
+let number = 100;
 
-let button = document.createElement("button");
-button.textContent = "Grid size";
-button.setAttribute("onclick", "gridSize()", false);
-body.appendChild(button);
+let sizePicker = document.createElement("input");
+sizePicker.textContent = "Grid size";
+sizePicker.setAttribute("type","range");
+sizePicker.setAttribute("min","1");
+sizePicker.setAttribute("max","100");
+sizePicker.setAttribute("default",number);
+sizePicker.classList.add("slider");
+body.appendChild(sizePicker);
 
 function setGrid(number) {
     removeExistingGrid();
@@ -60,12 +64,12 @@ function removeExistingGrid() {
 
 
 
-let table = document.querySelector(".container");
+let viewport = document.querySelector("html");
 let isClicked = false;
 
-table.addEventListener("mousedown",holdClick,false);
-table.addEventListener("mouseup",unholdClick,false);
-table.addEventListener("mouseover",markCell,false);
+viewport.addEventListener("mousedown",holdClick,false);
+viewport.addEventListener("mouseup",unholdClick,false);
+viewport.addEventListener("mouseover",markCell,false);
 
 function holdClick(e) {
     isClicked = true;
@@ -82,6 +86,8 @@ function markCell(e) {
     //console.log(isClicked,e.target);
     if (isClicked && e.target.classList.contains('item')) {
         e.target.classList.add("marked");
+    } else if (!e.target.classList.contains('item')) {
+        isClicked=false;
     }
 }
 
