@@ -1,6 +1,11 @@
 let body = document.querySelector("body");
 let number = 100;
 
+let button = document.createElement("button");
+button.textContent = "Grid size";
+button.setAttribute("onclick","gridSize()", false);
+body.appendChild(button);
+
 let sizePicker = document.createElement("input");
 sizePicker.textContent = "Grid size";
 sizePicker.setAttribute("type","range");
