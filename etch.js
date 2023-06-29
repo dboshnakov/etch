@@ -1,19 +1,35 @@
 let body = document.querySelector("body");
 let number = 16;
 
-let button = document.createElement("button");
-button.textContent = "Grid size";
-button.setAttribute("onclick","gridSize()", false);
-body.appendChild(button);
+let gridSize = document.createElement("div");
+gridSize.classList.add("grid-size");
+gridSize.textContent = `Grid size: ${number}x${number}`;
 
-let sizePicker = document.createElement("input");
-sizePicker.textContent = "Grid size";
-sizePicker.setAttribute("type","range");
-sizePicker.setAttribute("min","1");
-sizePicker.setAttribute("max","100");
-sizePicker.setAttribute("default",number);
-sizePicker.classList.add("slider");
-body.appendChild(sizePicker);
+
+let sizeSlider = document.createElement("input");
+sizeSlider.textContent = "Grid size";
+sizeSlider.setAttribute("type","range");
+sizeSlider.setAttribute("min","1");
+sizeSlider.setAttribute("max","100");
+sizeSlider.setAttribute("default",number);
+sizeSlider.classList.add("slider");
+
+sizeSlider.addEventListener("mouseup",function() {
+    number = this.value;
+    gridSize.textContent = `Grid size: ${number}x${number}`;
+    setGrid(number);
+});
+
+
+sizeSlider.oninput = function() {
+    number = this.value;
+    gridSize.textContent = `Grid size: ${number}x${number}`;
+}
+
+body.appendChild(gridSize);
+body.appendChild(sizeSlider);
+
+
 
 function setGrid(number) {
     removeExistingGrid();
@@ -40,17 +56,18 @@ let container = document.createElement("div");
 container.classList.add("container");
 setGrid(number);
 
-function gridSize() {
+function resizeGrid() {
     const userInput = prompt("Grid size: X by X. Enter X (1 to 100)");
     if (userInput === null || userInput === "") {
     } else if (userInput > 100 || userInput < 1) {
         //console.log(userInput);
         alert("Invalid input. Please enter a number value between 1 and 100");
-        gridSize();
+        resizeGrid();
     } else {
         console.log(`Grid size ${userInput} by ${userInput}`);
         number = userInput;
         //console.log(number);
+        gridSize.textContent = number;
         setGrid(number);
     }
 }
