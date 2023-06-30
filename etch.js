@@ -1,33 +1,54 @@
 let body = document.querySelector("body");
 let number = 16;
 
-let gridSize = document.createElement("div");
-gridSize.classList.add("grid-size");
-gridSize.textContent = `Grid size: ${number}x${number}`;
-
-
+let sectionMain = document.createElement("div");
+let sectionOptions = document.createElement("div");
+let sectionGrid = document.createElement("div");
+let sectionSlider = document.createElement("div");
+let options = document.createElement("div");
+let sliderText = document.createElement("div");
 let sizeSlider = document.createElement("input");
+
+sectionMain.classList.add("section-main");
+sectionOptions.classList.add("section-options");
+sectionGrid.classList.add("section-grid");
+sectionSlider.classList.add("section-slider");
+options.classList.add("options");
+
+sectionSlider.appendChild(sliderText);
+sectionSlider.appendChild(sizeSlider);
+sectionOptions.appendChild(options);
+sectionOptions.appendChild(sectionSlider);
+sectionMain.appendChild(sectionOptions);
+sectionMain.appendChild(sectionGrid);
+body.appendChild(sectionMain);
+
+options.textContent = `lorem ipsum random text lorem ipsum random textlorem ipsum random textlorem ipsum random textlorem ipsum random text`;
+
+sliderText.classList.add("slider-text");
+sliderText.textContent = `Grid size: ${number}x${number}`;
+
 sizeSlider.textContent = "Grid size";
 sizeSlider.setAttribute("type","range");
 sizeSlider.setAttribute("min","1");
 sizeSlider.setAttribute("max","100");
+sizeSlider.setAttribute("value",number);
 sizeSlider.setAttribute("default",number);
 sizeSlider.classList.add("slider");
 
 sizeSlider.addEventListener("mouseup",function() {
     number = this.value;
-    gridSize.textContent = `Grid size: ${number}x${number}`;
+    sliderText.textContent = `Grid size: ${number}x${number}`;
     setGrid(number);
 });
 
 
 sizeSlider.oninput = function() {
     number = this.value;
-    gridSize.textContent = `Grid size: ${number}x${number}`;
+    sliderText.textContent = `Grid size: ${number}x${number}`;
 }
 
-body.appendChild(gridSize);
-body.appendChild(sizeSlider);
+
 
 
 
@@ -39,8 +60,8 @@ function setGrid(number) {
         let row = document.createElement("div");
         row.classList.add("row");
         row.classList.add(i);
-        container.appendChild(row);
-        body.appendChild(container);
+        grid.appendChild(row);
+        sectionGrid.appendChild(grid);
         for (let j = 1; j <= number; j++) {
         //console.log(`i=${i}, j=${j}`);
         let item = document.createElement("div");
@@ -52,8 +73,8 @@ function setGrid(number) {
     }
 }
 
-let container = document.createElement("div");
-container.classList.add("container");
+let grid = document.createElement("div");
+grid.classList.add("grid");
 setGrid(number);
 
 function resizeGrid() {
@@ -67,20 +88,20 @@ function resizeGrid() {
         console.log(`Grid size ${userInput} by ${userInput}`);
         number = userInput;
         //console.log(number);
-        gridSize.textContent = number;
+        sliderText.textContent = number;
         setGrid(number);
     }
 }
 
 
 function removeExistingGrid() {
-    if (container.firstChild === null) {
+    if (grid.firstChild === null) {
         //console.log("no child elements");
     }
-    //console.log(container.firstChild);
-    while (container.firstChild !== null) {
-        //console.log(container.firstChild);
-        container.removeChild(container.firstChild);
+    //console.log(grid.firstChild);
+    while (grid.firstChild !== null) {
+        //console.log(grid.firstChild);
+        grid.removeChild(grid.firstChild);
     }
 }
 
