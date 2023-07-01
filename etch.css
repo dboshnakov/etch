@@ -20,27 +20,14 @@ div {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+    font-size: min(3vh,3vw);
 }
 
-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0.1em solid gray;
-    padding: 0.2em;
-    border-radius: 0.5em;
-    height: min(10vw,5vh);
-    width: min(20vw,10vh);
-    font-size: 2.4vh;
-    text-align: justify;
-    white-space: nowrap;
-    
-}
 
 div.grid {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 0.1em solid black;
     justify-content: center;
     align-items: center;
     height: min(70vw,70vh);
@@ -58,20 +45,56 @@ div.row {
 div.item {
     display: flex;
     flex-grow: 1;
+}
 
+div.with-border {
+    border: 0.05em solid black;
 }
 
 .marked {
-    background-color: blue;
+    background-color: rgb(83, 83, 255);
 }
 
-input {
-    width: 100%;
-    height: 100%;
+input.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 96%;
+    height: 1vh;
+    background: rgb(71, 71, 71);
+    border-radius: 0.6em;
+}
+
+input.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 4vh;
+    height: 4vh;
+    border-radius:50%;
+    background: white;
+    border: 0.2em solid rgb(71, 71, 71);
+}
+
+input.checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 3vh;
+    height: 3vh;
+    border: 0.1em solid rgb(71, 71, 71);
+    border-radius:12.5%;
+}
+
+input.checkbox:checked {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 3vh;
+    height: 3vh;
+    border: 0.1em solid rgb(71, 71, 71);
+    background: rgb(71, 71, 71);
+    border-radius:12.5%;
 }
 
 .grid-size {
-    font-size: min(2em,20vh,20vw);
+    font-size: min(40vh,40vw);
 }
 
 .section-main, .section-slider {
@@ -83,18 +106,30 @@ input {
 }
 
 .section-options {
+    display: flex;
     flex-direction: column;
     width: min(70vw,70vh);
-    border: 2px solid blue;
+    border: 0.1em solid black;
+    gap: 0.4em;
 }
 
 .section-slider {
-    border: 2px solid red;
-    float: right;
+    gap: 0.4em;
+    padding: 0.2em;
 }
 
 .options {
-    border: 2px solid green;
-    float: left;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-areas:
+    'erase show-grid';
+    gap: 0.2em;
+    padding: 0.2em;
+    padding-top: 0;
+    text-align: center;
+}
+
+.option {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2em;
 }
