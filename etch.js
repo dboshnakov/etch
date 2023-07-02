@@ -1,6 +1,6 @@
 let body = document.querySelector("body");
 let number = 16;
-let gridMode = false;
+let usedColor = '#ff0000';
 
 let sectionMain = document.createElement("div");
 let sectionOptions = document.createElement("div");
@@ -11,8 +11,12 @@ let sliderText = document.createElement("div");
 let sizeSlider = document.createElement("input");
 let erase = document.createElement("div");
 let showGrid = document.createElement("div");
+let clearGrid = document.createElement("div");
 let flagEraser = document.createElement("input");
 let flagShowGrid = document.createElement("input");
+let buttonClearGrid = document.createElement("button");
+let sectionColorPicker = document.createElement("div");
+let colorPicker = document.createElement("input");
 
 sectionMain.classList.add("section-main");
 sectionOptions.classList.add("section-options");
@@ -23,17 +27,29 @@ erase.classList.add("option");
 erase.classList.add("erase");
 showGrid.classList.add("option");
 showGrid.classList.add("show-grid");
+clearGrid.classList.add("option");
+clearGrid.classList.add("clearGrid");
 flagEraser.classList.add("checkbox");
 flagShowGrid.classList.add("checkbox");
+sectionColorPicker.classList.add('option');
+sectionColorPicker.classList.add('color');
 labelEraser = document.createElement("label");
 labelShowGrid = document.createElement("label");
+labelColorPicker = document.createElement("label");
+
+colorPicker.value = usedColor;
 
 erase.appendChild(flagEraser);
 erase.appendChild(labelEraser);
 showGrid.appendChild(flagShowGrid);
 showGrid.appendChild(labelShowGrid);
+sectionColorPicker.appendChild(labelColorPicker);
+sectionColorPicker.appendChild(colorPicker);
+clearGrid.appendChild(buttonClearGrid);
 options.appendChild(erase);
 options.appendChild(showGrid);
+options.appendChild(clearGrid);
+options.appendChild(sectionColorPicker);
 sectionSlider.appendChild(sliderText);
 sectionSlider.appendChild(sizeSlider);
 sectionOptions.appendChild(sectionSlider);
@@ -48,6 +64,7 @@ labelEraser.textContent ="Eraser";
 flagShowGrid.setAttribute("id","display-grid");
 labelShowGrid.setAttribute("for","display-grid");
 labelShowGrid.textContent ="Show grid";
+buttonClearGrid.textContent = "Clear grid";
 
 sliderText.classList.add("slider-text");
 sliderText.textContent = `Grid size: ${number}x${number}`;
@@ -56,7 +73,12 @@ flagEraser.setAttribute("type","checkbox");
 flagEraser.setAttribute("name","eraser");
 
 flagShowGrid.setAttribute("type","checkbox");
-flagShowGrid.setAttribute("name","color-picker");
+
+colorPicker.classList.add("color-picker");
+colorPicker.setAttribute("type","color");
+colorPicker.setAttribute("id","pickcolor");
+labelColorPicker.setAttribute("for","pickcolor");
+labelColorPicker.textContent = "Color";
 
 sizeSlider.textContent = "Grid size";
 sizeSlider.setAttribute("type","range");
@@ -72,10 +94,13 @@ sizeSlider.addEventListener("mouseup",function() {
     setGrid(number);
 });
 
-sizeSlider.oninput = function() {
-    number = this.value;
-    sliderText.textContent = `Grid size: ${number}x${number}`;
-}
+//colorPicker function START
+colorPicker.addEventListener("change",function() {
+    console.log(this.value);
+    usedColor = this.value;
+});
+//grid size function START
+let gridMode = false;
 
 flagShowGrid.addEventListener("change",function() {
     if (this.checked) {
@@ -83,19 +108,33 @@ flagShowGrid.addEventListener("change",function() {
     } else {
         gridMode = false;
     }
-    console.log(gridMode);
     displayGrid();
 });
 
 function displayGrid() {
-    console.log(cells);
+    let cells = document.querySelectorAll(".item");
     if (gridMode) {
         cells.forEach(cell => cell.classList.add("with-border"));
     } else {
         cells.forEach(cell => cell.classList.remove("with-border"));
     }
 }
+//grid size function END
 
+//clear grid function START
+buttonClearGrid.addEventListener("click",function() {
+    let cells = document.querySelectorAll(".item");
+    cells.forEach(cell => {
+        cell.classList.remove("marked");
+        cell.style.backgroundColor = 'transparent';
+    });
+});
+//clear grid function END
+
+sizeSlider.oninput = function() {
+    number = this.value;
+    sliderText.textContent = `Grid size: ${number}x${number}`;
+}
 
 function setGrid(number) {
     removeExistingGrid();
@@ -106,7 +145,6 @@ function setGrid(number) {
         grid.appendChild(row);
         sectionGrid.appendChild(grid);
         for (let j = 1; j <= number; j++) {
-        //console.log(`i=${i}, j=${j}`);
         let item = document.createElement("div");
         item.classList.add("item");
         item.classList.add(`${i}_${j}`);
@@ -114,8 +152,8 @@ function setGrid(number) {
         thisRow.appendChild(item);
         }
     }
+    displayGrid();
 }
-
 
 let grid = document.createElement("div");
 grid.classList.add("grid");
@@ -147,13 +185,6 @@ let viewport = document.querySelector("html");
 let isClicked = false;
 let eraserMode = false;
 
-
-let cells = document.querySelectorAll(".item");
-
-
-
-
-
 viewport.addEventListener("mousedown",holdClick,false);
 viewport.addEventListener("mouseup",unholdClick,false);
 viewport.addEventListener("mouseover",markCell,false);
@@ -178,8 +209,11 @@ function markCell(e) {
     if (isClicked && e.target.classList.contains('item')) {
         if (!eraserMode) {
             e.target.classList.add("marked");
+            e.target.style.backgroundColor = usedColor;
+            console.log(usedColor);
         } else {
             e.target.classList.remove("marked");
+            e.target.style.backgroundColor = 'transparent';
         }
     } else if (!e.target.classList.contains('item')) {
         isClicked=false;

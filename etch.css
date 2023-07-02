@@ -52,7 +52,7 @@ div.with-border {
 }
 
 .marked {
-    background-color: rgb(83, 83, 255);
+    
 }
 
 input.slider {
@@ -84,13 +84,32 @@ input.checkbox {
 }
 
 input.checkbox:checked {
-    -webkit-appearance: none;
-    appearance: none;
+
     width: 3vh;
     height: 3vh;
     border: 0.1em solid rgb(71, 71, 71);
     background: rgb(71, 71, 71);
     border-radius:12.5%;
+}
+
+input.color-picker {
+    -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+button {
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-flex;
+    height: 4vh;
+    width: auto;
+    background: white;
+    align-items: center;
+    border: 0.1em solid rgb(71,71,71);
 }
 
 .grid-size {
@@ -121,15 +140,19 @@ input.checkbox:checked {
 .options {
     display: grid;
     grid-template-areas:
-    'erase show-grid';
+    'erase clearGrid'
+    'show-grid colorPicker';
     gap: 0.2em;
     padding: 0.2em;
     padding-top: 0;
     text-align: center;
+    justify-items: center;
+    align-items: center;
 }
 
 .option {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 0.2em;
 }
