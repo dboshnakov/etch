@@ -17,6 +17,7 @@ let flagShowGrid = document.createElement("input");
 let buttonClearGrid = document.createElement("button");
 let sectionColorPicker = document.createElement("div");
 let colorPicker = document.createElement("input");
+let colorPickerSpan = document.createElement("span");
 
 sectionMain.classList.add("section-main");
 sectionOptions.classList.add("section-options");
@@ -36,6 +37,7 @@ sectionColorPicker.classList.add('color');
 labelEraser = document.createElement("label");
 labelShowGrid = document.createElement("label");
 labelColorPicker = document.createElement("label");
+colorPickerSpan.classList.add("color-span");
 
 colorPicker.value = usedColor;
 
@@ -43,8 +45,9 @@ erase.appendChild(flagEraser);
 erase.appendChild(labelEraser);
 showGrid.appendChild(flagShowGrid);
 showGrid.appendChild(labelShowGrid);
+colorPickerSpan.appendChild(colorPicker);
 sectionColorPicker.appendChild(labelColorPicker);
-sectionColorPicker.appendChild(colorPicker);
+sectionColorPicker.appendChild(colorPickerSpan);
 clearGrid.appendChild(buttonClearGrid);
 options.appendChild(erase);
 options.appendChild(showGrid);
@@ -77,6 +80,7 @@ flagShowGrid.setAttribute("type","checkbox");
 colorPicker.classList.add("color-picker");
 colorPicker.setAttribute("type","color");
 colorPicker.setAttribute("id","pickcolor");
+colorPickerSpan.style.background = usedColor;
 labelColorPicker.setAttribute("for","pickcolor");
 labelColorPicker.textContent = "Color";
 
@@ -98,6 +102,7 @@ sizeSlider.addEventListener("mouseup",function() {
 colorPicker.addEventListener("change",function() {
     console.log(this.value);
     usedColor = this.value;
+    colorPickerSpan.style.background = usedColor;
 });
 //grid size function START
 let gridMode = false;

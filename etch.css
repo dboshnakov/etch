@@ -12,6 +12,7 @@ body {
     align-items: center;
     flex-direction: column;
     gap: min(5vw,5vh);
+    text-align: center;
 }
 
 div {
@@ -51,10 +52,6 @@ div.with-border {
     border: 0.05em solid black;
 }
 
-.marked {
-    
-}
-
 input.slider {
     -webkit-appearance: none;
     appearance: none;
@@ -81,10 +78,10 @@ input.checkbox {
     height: 3vh;
     border: 0.1em solid rgb(71, 71, 71);
     border-radius:12.5%;
+    white-space: nowrap;
 }
 
 input.checkbox:checked {
-
     width: 3vh;
     height: 3vh;
     border: 0.1em solid rgb(71, 71, 71);
@@ -92,24 +89,20 @@ input.checkbox:checked {
     border-radius:12.5%;
 }
 
-input.color-picker {
-    -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
 
 button {
     -webkit-appearance: none;
     appearance: none;
-    display: inline-flex;
+    display: flex;
     height: 4vh;
-    width: auto;
+    width: 16vh;
     background: white;
+    text-align: center;
+    justify-content: center;
     align-items: center;
     border: 0.1em solid rgb(71,71,71);
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .grid-size {
@@ -128,8 +121,8 @@ button {
     display: flex;
     flex-direction: column;
     width: min(70vw,70vh);
-    border: 0.1em solid black;
-    gap: 0.4em;
+    height: 14vh;
+    gap: 0.4vw;
 }
 
 .section-slider {
@@ -138,16 +131,14 @@ button {
 }
 
 .options {
-    display: grid;
-    grid-template-areas:
-    'erase clearGrid'
-    'show-grid colorPicker';
-    gap: 0.2em;
-    padding: 0.2em;
+    display: flex;
+    flex-direction: row;
+    padding: 0.4vw;
     padding-top: 0;
+    padding-bottom: 0;
+    border: 0;
     text-align: center;
-    justify-items: center;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .option {
@@ -155,4 +146,21 @@ button {
     flex-direction: row;
     align-items: center;
     gap: 0.2em;
+}
+
+.option.color span {
+    position: relative;
+    width: 2.6vh;
+    height: 2.6vh;
+    padding: 0;
+    border: 0.1em solid transparent;
+    border-radius: 12.5%;
+}
+
+.option.color input {
+    position: relative;
+    opacity: 0;
+    cursor: pointer;
+    width: 2vh;
+    height: 2vh;
 }
